@@ -13,12 +13,15 @@ if (NOT TPDE_ENABLE_ENCODEGEN)
     message(FATAL_ERROR "TPDE_ENABLE_LLVM needs TPDE_ENABLE_ENCODEGEN")
 endif ()
 
-add_library(tpde_llvm)
+add_library(tpde_llvm SHARED)
 add_library(tpde::tpde_llvm ALIAS tpde_llvm)
 set_target_properties(tpde_llvm PROPERTIES
     VERSION 0.1.0
     LINKER_LANGUAGE CXX
+    SOVERSION 0
 )
+
+target_compile_definitions(tpde_llvm PRIVATE TPDE_LLVM_EXPORTS)
 
 target_link_libraries(tpde_llvm PRIVATE tpde)
 
@@ -48,6 +51,7 @@ target_sources(tpde_llvm PRIVATE
     FILE_SET HEADERS
     BASE_DIRS include
     FILES
+        include/tpde-llvm/export.hpp
         include/tpde-llvm/LLVMCompiler.hpp
 
     PRIVATE

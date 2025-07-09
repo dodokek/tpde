@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 #pragma once
 
+#include "tpde-llvm/export.hpp"
 #include <cstdint>
 #include <functional>
 #include <memory>
@@ -20,7 +21,7 @@ class JITMapperImpl;
 
 /// In-memory mapper for JIT execution. Memory and registered unwind info will
 /// be released on destruction.
-class JITMapper {
+class TPDE_LLVM_API JITMapper {
 private:
   friend class JITMapperImpl;
 
@@ -45,7 +46,7 @@ public:
 };
 
 /// Compiler for LLVM modules
-class LLVMCompiler {
+class TPDE_LLVM_API LLVMCompiler {
 protected:
   LLVMCompiler() = default;
 

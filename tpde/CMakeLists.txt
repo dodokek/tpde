@@ -20,6 +20,7 @@ add_library(tpde::tpde ALIAS tpde)
 set_target_properties(tpde PROPERTIES
     VERSION 0.1.0
     LINKER_LANGUAGE CXX
+    POSITION_INDEPENDENT_CODE ON
 )
 
 # spdlog
@@ -27,6 +28,8 @@ if (((TPDE_LOGGING STREQUAL "DebugOnly") AND (CMAKE_BUILD_TYPE STREQUAL "Debug")
     set(SPDLOG_NO_EXCEPTIONS ON CACHE BOOL "TPDE compiles without exceptions")
     set(SPDLOG_USE_STD_FORMAT ON CACHE BOOL "TPDE uses C++20")
     add_subdirectory(../deps/spdlog ${CMAKE_CURRENT_BINARY_DIR}/deps/spdlog)
+
+    set_target_properties(spdlog PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
     target_compile_definitions(tpde PUBLIC TPDE_LOGGING)
     target_link_libraries(tpde PUBLIC spdlog::spdlog)
@@ -80,6 +83,8 @@ if (TPDE_X64)
     set(FADEC_ENCODE2 ON BOOL "fadec encode2 support")
     add_subdirectory(../deps/fadec ${CMAKE_CURRENT_BINARY_DIR}/deps/fadec)
 
+    set_target_properties(fadec PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
     target_link_libraries(tpde PUBLIC fadec::fadec)
     target_sources(tpde PRIVATE
         src/x64/AssemblerElfX64.cpp
@@ -96,6 +101,8 @@ endif ()
 # disarm
 if (TPDE_A64)
     add_subdirectory(../deps/disarm ${CMAKE_CURRENT_BINARY_DIR}/deps/disarm)
+
+    set_target_properties(disarm64 PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
     target_link_libraries(tpde PUBLIC disarm64::disarm64)
     target_sources(tpde PRIVATE
