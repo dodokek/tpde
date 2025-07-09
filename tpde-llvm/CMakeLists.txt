@@ -29,7 +29,7 @@ target_link_libraries(tpde_llvm PRIVATE tpde)
 target_include_directories(tpde_llvm SYSTEM PRIVATE ../deps/hopscotch-map/include)
 
 # Configure LLVM
-set(TPDE_LINK_LLVM_STATIC FALSE CACHE BOOL "Should LLVM be linked statically?")
+set(TPDE_LINK_LLVM_STATIC TRUE CACHE BOOL "Should LLVM be linked statically?")
 
 target_include_directories(tpde_llvm SYSTEM PUBLIC ${LLVM_INCLUDE_DIRS})
 target_compile_definitions(tpde_llvm PUBLIC ${LLVM_DEFINITIONS})
